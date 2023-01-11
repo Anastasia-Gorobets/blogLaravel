@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/contact', function () {
-    return view('home.contact');
-})->name('contact');
-
 
 Route::view('/', 'home.index')->name('home.index');
 Route::view('/contact', 'home.contact')->name('home.contact');
@@ -47,15 +43,46 @@ Route::get('/posts/{id}', function ($id) use ($posts) {
     return  view('posts.show', ['post'=>$posts[$id]]);
 });
 
-Route::get('/posts', function () use ($posts) {
+Route::get('/posts', function (Request $request) use ($posts) {
     return  view('posts.index', compact('posts'));
 });
-
-
 
 
 Route::get('/recent-posts/{days?}', function ($days=20) {
     return 'Recent days = '.$days;
 });
+
+
+
+Route::prefix('/fun')->name('fun.')->group(function () use ($posts){
+
+    Route::get('/responses', function () use ($posts) {
+        return response($posts, 201)->header('Content-Type', 'application/json')->cookie('MY_COOKIE','Nastya', 3600);
+    });
+
+    Route::get('/redirect', function () use ($posts) {
+        return redirect('/contact');
+    });
+
+    Route::get('/back', function () use ($posts) {
+        return back();
+    });
+
+    Route::get('/named-route', function () use ($posts) {
+        return redirect()->route('home.contact');
+    });
+
+    Route::get('/json', function () use ($posts) {
+        return response()->json($posts);
+    });
+
+    Route::get('/download', function () use ($posts) {
+        return response()->download(public_path('/coupon.png'), 'newFile.png');
+    });
+});
+
+
+
+
 
 
