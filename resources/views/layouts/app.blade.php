@@ -9,6 +9,9 @@
 </head>
 <body>
 <div>
+    @if(session('status'))
+        <div style="color:#ffffff;background-color: #90ee90;">{{session('status')}}</div>
+    @endif
     @yield('content')
 </div>
 </body>
