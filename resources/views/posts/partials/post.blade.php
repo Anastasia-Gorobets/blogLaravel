@@ -1,10 +1,9 @@
-<div @if(!$loop->even)style="background-color: silver" @endif>
-    {{$loop->index}} {{$post->title}}
-</div>
-<div>
-    <form method="POST"  action="{{route('posts.destroy', ['post'=>$post->id])}}">
+<h3><a href="{{route('posts.show',['post'=>$post->id])}}">{{$post->title}}</a></h3>
+<div class="mb-3">
+    <a class="btn btn-primary" href="{{route('posts.edit',['post'=>$post->id])}}">Edit</a>
+    <form class="d-inline" method="POST"  action="{{route('posts.destroy', ['post'=>$post->id])}}">
         @csrf
         @method('DELETE')
-        <input type="submit" value="Delete">
+        <input class="btn btn-primary" type="submit" value="Delete">
     </form>
 </div>
