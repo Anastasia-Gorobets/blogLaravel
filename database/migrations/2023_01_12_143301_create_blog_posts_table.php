@@ -15,7 +15,7 @@ class CreateBlogPostsTable extends Migration
     {
 
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('votes');
+            $table->integer('votes')->default(0);
         });
         Schema::create('blog_posts', function (Blueprint $table) {
             $table->id();
