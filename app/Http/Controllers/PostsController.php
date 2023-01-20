@@ -6,6 +6,8 @@ use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\DB;
+
 class PostsController extends Controller
 {
 
@@ -17,6 +19,20 @@ class PostsController extends Controller
      */
     public function index()
     {
+
+       // DB::connection()->enableQuerylog();
+
+        $posts = BlogPost::all();
+
+        foreach ($posts as $post){
+           /* foreach ($post->comments as $comment){
+                echo $comment->content.'<br>';
+            }*/
+
+        }
+
+      //  dd( DB::connection()->getQueryLog());
+
         return  view('posts.index',['posts'=>BlogPost::orderBy('created_at','desc')->get()]);
     }
 
