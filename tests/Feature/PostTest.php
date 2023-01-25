@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\BlogPost;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -28,6 +29,17 @@ class PostTest extends TestCase
         $response->assertSeeText('Title1');
         $response->assertSeeText('No comments yet');
         $this->assertDatabaseHas('blog_posts',['title'=>'Title1']);
+    }
+
+
+    public function testSee1BlogPostWhithComments()
+    {
+        $post = $this->createBlogPost();
+
+        Comment::factory(4)->create(['blog_post_id'=>$post->id]);
+
+        $response = $this->get('/posts');
+        $response->assertSeeText('4 comments');
     }
 
     public function testStoreValid()
