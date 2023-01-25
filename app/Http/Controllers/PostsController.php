@@ -20,20 +20,25 @@ class PostsController extends Controller
     public function index()
     {
 
-       // DB::connection()->enableQuerylog();
+       /* $posts = BlogPost::withCount(['comments', 'comments as new_comments'=>function($query){
+            $query->where('created_at','>=', '2023-01-24 18:00:08');
+        }])->get();*/
 
-        $posts = BlogPost::all();
 
-        foreach ($posts as $post){
-           /* foreach ($post->comments as $comment){
-                echo $comment->content.'<br>';
-            }*/
+         /*$posts = BlogPost::whereDoesntHave('comments', function($query){
+             $query->where('content', 'like', '%abc%');
+         })->get();*/
 
-        }
 
-      //  dd( DB::connection()->getQueryLog());
 
-        return  view('posts.index',['posts'=>BlogPost::orderBy('created_at','desc')->get()]);
+       /* $posts = BlogPost::whereHas('comments',function($query){
+            $query->where('content', 'like', '%abc%');
+        })->get();
+
+        dd($posts);*/
+
+        //$posts = BlogPost::with('comments')->get();
+        return  view('posts.index',['posts'=>BlogPost::withCount('comments')->get()]);
     }
 
     /**
