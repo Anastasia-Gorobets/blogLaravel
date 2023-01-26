@@ -24,7 +24,6 @@ class PostTest extends TestCase
     public function testSee1BlogPostWhenThereIs1()
     {
         $post = $this->createBlogPost();
-
         $response = $this->get('/posts');
         $response->assertSeeText('Title1');
         $response->assertSeeText('No comments yet');
@@ -67,7 +66,7 @@ class PostTest extends TestCase
     {
         $post = $this->createBlogPost();
 
-        $this->assertDatabaseHas('blog_posts',['title'=>'Title1']);
+        $this->assertDatabaseHas('blog_posts',['title'=>$post->title]);
 
         $params = [
             'title'=>'Title1 updated',
@@ -82,18 +81,14 @@ class PostTest extends TestCase
     public function testDeleteValid()
     {
         $post = $this->createBlogPost();
+
         $this->delete("/posts/{$post->id}")->assertStatus(302)->assertSessionHas('status');
         $this->assertEquals(session('status'),'Blog Post was deleted!');
         $this->assertDatabaseMissing('blog_posts',['title'=>'Title1']);
     }
 
     private function createBlogPost(){
-        $post = new BlogPost();
-        $post->title = 'Title1';
-        $post->content = 'Content1';
-        $post->save();
-
-        return $post;
+        return BlogPost::factory()->newTitle()->create();
     }
 
 
