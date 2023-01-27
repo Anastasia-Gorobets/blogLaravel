@@ -43,6 +43,9 @@ class PostTest extends TestCase
 
     public function testStoreValid()
     {
+        $user = $this->user();
+        $this->actingAs($user);
+
         $params = [
             'title'=>'Title2 test',
             'content'=>'Content2 test content',
@@ -54,6 +57,8 @@ class PostTest extends TestCase
 
     public function testStoreFail()
     {
+        $user = $this->user();
+        $this->actingAs($user);
         $params = [
             'title'=>'x',
             'content'=>'x',
@@ -64,6 +69,9 @@ class PostTest extends TestCase
 
     public function testUpdateValid()
     {
+        $user = $this->user();
+        $this->actingAs($user);
+
         $post = $this->createBlogPost();
 
         $this->assertDatabaseHas('blog_posts',['title'=>$post->title]);
@@ -80,6 +88,9 @@ class PostTest extends TestCase
 
     public function testDeleteValid()
     {
+        $user = $this->user();
+        $this->actingAs($user);
+
         $post = $this->createBlogPost();
 
         $this->delete("/posts/{$post->id}")->assertStatus(302)->assertSessionHas('status');

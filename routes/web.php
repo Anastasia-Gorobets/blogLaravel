@@ -17,7 +17,7 @@ use App\Http\Controllers\PostsController;
 |
 */
 
-Route::get('/',[HomeController::class, 'home'])->name('home.index');
+Route::get('/',[HomeController::class, 'index'])->name('home.index');
 Route::get('/contact',[HomeController::class, 'contact'])->name('home.contact');
 
 Route::get('/single',AboutController::class)->name('single');
@@ -73,3 +73,7 @@ Route::get('/recent-posts/{days?}', function ($days=20) {
 
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
