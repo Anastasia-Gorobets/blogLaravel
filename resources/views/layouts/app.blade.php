@@ -34,6 +34,17 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('home.contact') }}">{{ __('Contact') }}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.index') }}">{{ __('Blog posts') }}</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('posts.create') }}">{{ __('Add post') }}</a>
+                        </li>
 
                     </ul>
 
@@ -77,12 +88,6 @@
 
         <main class="py-4">
             <div class="container">
-
-                @guest
-                    It is guest
-                @endguest
-
-
                 @yield('content')
             </div>
         </main>

@@ -6,13 +6,19 @@
     <p>No comments yet</p>
 @endif
 
-@auth
+
 <div class="mb-3">
-    <a class="btn btn-primary" href="{{route('posts.edit',['post'=>$post->id])}}">Edit</a>
-    <form class="d-inline" method="POST"  action="{{route('posts.destroy', ['post'=>$post->id])}}">
-        @csrf
-        @method('DELETE')
-        <input class="btn btn-primary" type="submit" value="Delete">
-    </form>
+
+    @can('update', $post)
+     <a class="btn btn-primary" href="{{route('posts.edit',['post'=>$post->id])}}">Edit</a>
+    @endcan
+
+    @can('delete', $post)
+        <form class="d-inline" method="POST"  action="{{route('posts.destroy', ['post'=>$post->id])}}">
+            @csrf
+            @method('DELETE')
+            <input class="btn btn-primary" type="submit" value="Delete">
+        </form>
+    @endcan
 </div>
-@endauth
+

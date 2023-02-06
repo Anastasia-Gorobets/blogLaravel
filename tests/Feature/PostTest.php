@@ -70,17 +70,22 @@ class PostTest extends TestCase
     public function testUpdateValid()
     {
         $user = $this->user();
+
         $this->actingAs($user);
 
-        $post = $this->createBlogPost();
+        $post = $this->createBlogPost($user->id);
 
-        $this->assertDatabaseHas('blog_posts',['title'=>$post->title]);
+        $this->assertDatabaseHas('blog_posts', ['title'=>$post->title]);
 
         $params = [
-            'title'=>'Title1 updated',
-            'content'=>'Content1 updated',
+            'title' => 'A new named title',
+            'content' => 'Content was changed',
         ];
-        $this->put("/posts/{$post->id}",$params)->assertStatus(302)->assertSessionHas('status');
+
+        $this->put("/posts/{$post->id}", $params)
+            ->assertStatus(302)
+            ->assertSessionHas('status');
+
         $this->assertEquals(session('status'),'Blog Post was updated!');
         $this->assertDatabaseMissing('blog_posts',['title'=>'Title1']);
 
@@ -89,17 +94,19 @@ class PostTest extends TestCase
     public function testDeleteValid()
     {
         $user = $this->user();
+
         $this->actingAs($user);
 
-        $post = $this->createBlogPost();
+        $post = $this->createBlogPost($user->id);
 
         $this->delete("/posts/{$post->id}")->assertStatus(302)->assertSessionHas('status');
         $this->assertEquals(session('status'),'Blog Post was deleted!');
-        $this->assertDatabaseMissing('blog_posts',['title'=>'Title1']);
+
+        $this->get('/posts')->assertDontSee('Title1');
     }
 
-    private function createBlogPost(){
-        return BlogPost::factory()->newTitle()->create();
+    private function createBlogPost($userId = null){
+        return BlogPost::factory()->newTitle()->create(['user_id'=>$userId ?? $this->user()->id]);
     }
 
 

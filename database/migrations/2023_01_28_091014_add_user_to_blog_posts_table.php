@@ -15,7 +15,9 @@ class AddUserToBlogPostsTable extends Migration
     {
         Schema::table('blog_posts', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->nullable();
+
             $table->foreign('user_id')->references('id')->on('users');
+
         });
     }
 
@@ -27,7 +29,9 @@ class AddUserToBlogPostsTable extends Migration
     public function down()
     {
         Schema::table('blog_posts', function (Blueprint $table) {
-            $table->dropForeign(['user_id']);
+            if (env('DB_CONNECTION') !== 'sqlite_testing') {
+                $table->dropForeign(['user_id']);
+            }
             $table->dropColumn('user_id');
         });
     }

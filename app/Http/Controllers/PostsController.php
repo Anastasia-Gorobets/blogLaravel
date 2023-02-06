@@ -6,7 +6,10 @@ use App\Http\Requests\StorePost;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+
 
 class PostsController extends Controller
 {
@@ -53,6 +56,8 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', BlogPost::class);
+
         return view('posts.create');
     }
 
@@ -97,6 +102,12 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = BlogPost::findOrFail($id);
+       /* if(Gate::denies('update-post',$post)){
+            abort(403);
+        }*/
+
+        $this->authorize('update',$post);
+
         return view('posts.edit',['post'=>$post]);
     }
 
@@ -110,9 +121,17 @@ class PostsController extends Controller
     public function update(StorePost $request, $id)
     {
         $post = BlogPost::findOrFail($id);
+
+        /*if(Gate::denies('update-post',$post)){
+            abort(403);
+        }*/
+
+        $this->authorize('update',$post);
+
         $validated = $request->validated();
         $post->fill($validated);
         $post->save();
+
         $request->session()->flash('status', 'Blog Post was updated!');
         return redirect()->route('posts.show',['post'=>$post->id]);
     }
@@ -126,6 +145,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
        $post = BlogPost::findOrFail($id);
+       $this->authorize('delete',$post);
        $post->delete();
        session()->flash('status', 'Blog Post was deleted!');
        return redirect()->route('posts.index');
