@@ -3,16 +3,31 @@
 @section('title','Posts')
 
 @section('content')
+<div class="row">
+    <div class="col-8">
+        @forelse($posts as $key=>$post)
+            <p class="text-muted">Added  {{$post->created_at->diffForHumans()}} by {{$post->user->name}}</p>
+            @include('posts.partials.post')
+        @empty
+            <p>No posts</p>
+        @endforelse
+    </div>
 
-@forelse($posts as $key=>$post)
-    <p class="text-muted">Added  {{$post->created_at->diffForHumans()}} by {{$post->user->name}}</p>
-    @include('posts.partials.post')
-@empty
-<p>No posts</p>
-@endforelse
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Most commented posts</h5>
 
-@php $test = 'Some text' @endphp
+                @foreach($mostCommentedPosts as $key=>$post)
+                    @include('posts.partials.post')
+                @endforeach
+            </div>
+        </div>
+    </div>
 
-<p>{{$test}}</p>
+
+
+</div>
+
 
 @endsection

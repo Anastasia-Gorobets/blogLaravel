@@ -46,7 +46,12 @@ class PostsController extends Controller
         dd($posts);*/
 
         //$posts = BlogPost::with('comments')->get();
-        return  view('posts.index',['posts'=>BlogPost::withCount('comments')->get()]);
+
+        $mostCommented = '';
+        return  view('posts.index',
+            ['posts'=>BlogPost::latest()->withCount('comments')->get(),
+            'mostCommentedPosts'=>BlogPost::mostCommented()->take(5)->get(),
+            ]);
     }
 
     /**
