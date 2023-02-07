@@ -44,6 +44,21 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Most active users last month</h5>
+                            <ul>
+                                @foreach($mostActiveLastMonth as $key=>$user)
+                                    <li>{{$user->name}}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
