@@ -9,6 +9,7 @@
 
 <div class="mb-3">
 
+    @auth
     @can('update', $post)
      <a class="btn btn-primary" href="{{route('posts.edit',['post'=>$post->id])}}">Edit</a>
     @endcan
@@ -22,6 +23,7 @@
                 </form>
             @endcan
         @endif
+    @endauth
 
 </div>
 
