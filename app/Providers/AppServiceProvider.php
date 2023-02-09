@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+
+        Blade::aliasComponent('components.badge','badge');
+
+
         Blade::if('disk', function ($value) {
             return config('filesystems.default') === $value;
         });
@@ -31,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::if('admin', function () {
             return 1 == 2;
         });
+
 
 
     }

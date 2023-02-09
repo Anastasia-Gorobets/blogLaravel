@@ -6,9 +6,9 @@
     <h1>{{$post->title}}</h1>
     <p>{{$post->content}}</p>
 
-    @component('components.badge')
+    @badge(['type'=>'primary'])
         Added {{$post->created_at->diffForHumans()}}
-    @endcomponent
+    @endbadge
 
     <h4>Comments</h4>
     @forelse($post->comments as $comment)
