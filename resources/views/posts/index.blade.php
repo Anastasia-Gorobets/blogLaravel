@@ -6,8 +6,14 @@
 <div class="row">
     <div class="col-8">
         @forelse($posts as $key=>$post)
+            @if($post->trashed())
+                <del>
+            @endif
             <p class="text-muted">Added  {{$post->created_at->diffForHumans()}} by {{$post->user->name}}</p>
             @include('posts.partials.post')
+             @if($post->trashed())
+                 </del>
+             @endif
         @empty
             <p>No posts</p>
         @endforelse
