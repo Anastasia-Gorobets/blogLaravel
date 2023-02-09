@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title','Posts')
-
 @section('content')
 <div class="row">
     <div class="col-8">
@@ -19,60 +17,34 @@
             <p>No posts</p>
         @endforelse
     </div>
-
     <div class="col-4">
         <div class="container">
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Most commented posts</h5>
-
-                            @foreach($mostCommentedPosts as $key=>$post)
-                                @include('posts.partials.post')
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Most active users</h5>
-                            <ul>
-                                @foreach($mostActive as $key=>$user)
-                                    <li>{{$user->name}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
+                    @card(['title'=>'Most commented posts'])
+                    @slot('items')
+                        @foreach($mostCommentedPosts as $key=>$post)
+                            <li><a href="{{route('posts.show',['post'=>$post->id])}}">{{$post->title}}</a></li>
+                        @endforeach
+                    @endslot
+                    @endcard
                 </div>
             </div>
-
             <div class="row">
                 <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Most active users last month</h5>
-                            <ul>
-                                @foreach($mostActiveLastMonth as $key=>$user)
-                                    <li>{{$user->name}}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
+                    @card(['title'=>'Most active users'])
+                    @slot('items', collect($mostActive)->pluck('name'))
+                    @endcard
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    @card(['title'=>'Most active users last month'])
+                    @slot('items', collect($mostActiveLastMonth)->pluck('name'))
+                    @endcard
                 </div>
             </div>
         </div>
-
     </div>
-
-
-
 </div>
-
-
 @endsection
