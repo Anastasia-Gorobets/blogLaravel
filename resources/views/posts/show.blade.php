@@ -3,23 +3,32 @@
 @section('title',$post['title'])
 
 @section('content')
-    <h1>{{$post->title}}</h1>
-    <p>{{$post->content}}</p>
 
-    @updated(['date'=>$post->created_at->diffForHumans()])
-    @endupdated
+    <div class="row">
+        <div class="col-8">
+            <h1>{{$post->title}}</h1>
+            <p>{{$post->content}}</p>
 
-    @tags(['tags'=>$post->tags])
-    @endtags
+            @updated(['date'=>$post->created_at->diffForHumans()])
+            @endupdated
 
-    <p>Currently read by {{$counter}} people</p>
+            @tags(['tags'=>$post->tags])
+            @endtags
 
-    <h4>Comments</h4>
-    @forelse($post->comments as $comment)
-        <p>{{$comment->content}}</p>
-        @updated(['date'=>$comment->created_at->diffForHumans()])
-        @endupdated
-    @empty
-        <p>No comments yet!</p>
-    @endforelse
+            <p>Currently read by {{$counter}} people</p>
+
+            <h4>Comments</h4>
+            @forelse($post->comments as $comment)
+                <p>{{$comment->content}}</p>
+                @updated(['date'=>$comment->created_at->diffForHumans()])
+                @endupdated
+            @empty
+                <p>No comments yet!</p>
+            @endforelse
+        </div>
+
+        <div class="col-4">
+            @include('posts._activity')
+        </div>
+    </div>
 @endsection

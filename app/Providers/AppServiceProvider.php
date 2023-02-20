@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::aliasComponent('components.tags','tags');
 
 
-        view()->composer('posts.index', ActivityComposer::class);
+        view()->composer(['posts.index', 'posts.show'], ActivityComposer::class);
 
 
         Blade::if('disk', function ($value) {
