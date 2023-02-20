@@ -27,6 +27,12 @@ class BlogPost extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tags(){
+        return $this->belongsToMany(Tag::class);
+    }
+
+
+
     public static  function boot()
     {
         static::addGlobalScope(new DeletedAdminScope);
