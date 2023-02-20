@@ -13,6 +13,11 @@
              @if($post->trashed())
                  </del>
              @endif
+
+            @tags(['tags'=>$post->tags])
+            @endtags
+
+
         @empty
             <p>No posts</p>
         @endforelse
