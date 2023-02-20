@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\PostTagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,9 @@ Route::get('/secret',[HomeController::class, 'secret'])->name('home.secret')->mi
 
 Route::get('/single',AboutController::class)->name('single');
 
-Route::resource('posts',PostsController::class);
+Route::get('/posts/tag/{id}',[PostTagController::class, 'index'])->name('posts.tags.index');
 
+Route::resource('posts',PostsController::class);
 
 /*
 Route::get('/posts/{id}', function ($id) use ($posts) {

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\ViewComposers\ActivityComposer;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         Blade::aliasComponent('components.updated','updated');
         Blade::aliasComponent('components.card','card');
         Blade::aliasComponent('components.tags','tags');
+
+
+        view()->composer('posts.index', ActivityComposer::class);
 
 
         Blade::if('disk', function ($value) {

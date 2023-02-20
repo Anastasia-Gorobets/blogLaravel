@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @section('title','Posts')
 @section('content')
+
+
 <div class="row">
     <div class="col-8">
         @forelse($posts as $key=>$post)
