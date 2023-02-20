@@ -9,6 +9,8 @@
     @updated(['date'=>$post->created_at->diffForHumans()])
     @endupdated
 
+    <p>Currently read by {{$counter}} people</p>
+
     <h4>Comments</h4>
     @forelse($post->comments as $comment)
         <p>{{$comment->content}}</p>
