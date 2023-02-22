@@ -9,7 +9,7 @@
             <h1>{{$post->title}}</h1>
             <p>{{$post->content}}</p>
 
-            @updated(['date'=>$post->created_at->diffForHumans()])
+            @updated(['date'=>$post->created_at->diffForHumans(), 'name'=>$post->user->name])
             @endupdated
 
             @tags(['tags'=>$post->tags])
@@ -20,7 +20,7 @@
             <h4>Comments</h4>
             @forelse($post->comments as $comment)
                 <p>{{$comment->content}}</p>
-                @updated(['date'=>$comment->created_at->diffForHumans()])
+                @updated(['date'=>$comment->created_at->diffForHumans(), 'name'=>$comment->user->name])
                 @endupdated
             @empty
                 <p>No comments yet!</p>
