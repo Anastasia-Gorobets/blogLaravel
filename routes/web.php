@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\PostTagController;
+use App\Http\Controllers\PostCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,7 @@ Route::get('/single',AboutController::class)->name('single');
 Route::get('/posts/tag/{id}',[PostTagController::class, 'index'])->name('posts.tags.index');
 
 Route::resource('posts',PostsController::class);
+Route::resource('posts.comments',PostCommentController::class)->only(['store']);
 
 /*
 Route::get('/posts/{id}', function ($id) use ($posts) {

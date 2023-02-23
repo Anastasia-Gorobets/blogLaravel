@@ -17,6 +17,8 @@
 
             <p>Currently read by {{$counter}} people</p>
 
+            @include('comments.partials._form')
+
             <h4>Comments</h4>
             @forelse($post->comments as $comment)
                 <p>{{$comment->content}}</p>
