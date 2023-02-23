@@ -61,6 +61,10 @@ class BlogPost extends Model
         $query->orderBy(static::CREATED_AT,'desc');
 
     }
+    public function scopeLatestWithRelations(Builder $query)
+    {
+        $query->latest()->withCount('comments')->with('user')->with('tags');
+    }
 
 
     public function scopeMostCommented(Builder $query)
