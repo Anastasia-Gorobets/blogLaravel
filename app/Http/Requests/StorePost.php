@@ -28,6 +28,7 @@ class StorePost extends FormRequest
         return [
             'title'=>'bail|required|min:5|max:20',
             'content'=>'required|min:5',
+            'thumbnail'=>'image|mimes:jpeg,jpg,png|max:1024|dimensions:min_height=500',
         ];
     }
 }

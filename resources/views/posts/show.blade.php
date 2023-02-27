@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('styles')
+<link href="{{ asset('css/posts.css') }}" rel="stylesheet">
+@endsection
+
 @section('title',$post['title'])
 
 @section('content')
@@ -14,6 +18,9 @@
 
             @tags(['tags'=>$post->tags])
             @endtags
+
+
+            <img class="postThumbnail" src="{{$post->image->url()}}">
 
             <p>Currently read by {{$counter}} people</p>
 

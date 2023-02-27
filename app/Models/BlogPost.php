@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class BlogPost extends Model
 {
@@ -31,6 +32,9 @@ class BlogPost extends Model
         return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
+    public function image(){
+        return $this->hasOne(Image::class);
+    }
 
 
     public static  function boot()
@@ -41,6 +45,9 @@ class BlogPost extends Model
 
         static::deleting(function (BlogPost $blogPost){
             $blogPost->comments()->delete();
+            Storage::delete($blogPost->image->path);
+            $blogPost->image()->delete();
+
             Cache::tags(['blog-post'])->forget("blog-post-{$blogPost->id}");
         });
 
