@@ -9,7 +9,7 @@
             @if($post->trashed())
                 <del>
             @endif
-            @updated(['date'=>$post->created_at->diffForHumans(), 'name'=>$post->user->name])
+            @updated(['date'=>$post->created_at->diffForHumans(), 'name'=>$post->user->name, 'userId'=>$post->user->id])
             @endupdated
             @include('posts.partials.post')
              @if($post->trashed())
