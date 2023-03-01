@@ -18,8 +18,9 @@ class HomeTest extends TestCase
         $user = $this->user();
         $this->actingAs($user);
         $response = $this->get('/');
-        $response->assertSeeText('You are logged in!');
-        $response->assertSeeText('Dashboard');
+        $response->assertSeeText('Most commented posts');
+        $response->assertSeeText('Most active users');
+        $response->assertSeeText('Most active users last month');
     }
     public function testContact()
     {

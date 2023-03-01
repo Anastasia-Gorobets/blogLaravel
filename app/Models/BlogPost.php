@@ -20,7 +20,7 @@ class BlogPost extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class)->latest();
+        return $this->morphMany(Comment::class, 'commentable')->latest();
     }
 
     public function user()
@@ -44,8 +44,10 @@ class BlogPost extends Model
         parent::boot();
 
         static::deleting(function (BlogPost $blogPost){
+            if($blogPost->image){
+                Storage::delete($blogPost->image->path);
+            }
             $blogPost->comments()->delete();
-            Storage::delete($blogPost->image->path);
             $blogPost->image()->delete();
 
             Cache::tags(['blog-post'])->forget("blog-post-{$blogPost->id}");

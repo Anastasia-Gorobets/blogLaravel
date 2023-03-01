@@ -34,8 +34,9 @@ class PostTest extends TestCase
     public function testSee1BlogPostWhithComments()
     {
         $post = $this->createBlogPost();
+        $user = $this->user();
 
-        Comment::factory(4)->create(['blog_post_id'=>$post->id]);
+        Comment::factory(4)->create(['commentable_id'=>$post->id, 'commentable_type'=>BlogPost::class, 'user_id'=>$user->id]);
 
         $response = $this->get('/posts');
         $response->assertSeeText('4 comments');

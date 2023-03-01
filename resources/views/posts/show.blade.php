@@ -24,16 +24,10 @@
 
             <p>Currently read by {{$counter}} people</p>
 
-            @include('comments.partials._form')
+            @commentForm(['route'=>route('posts.comments.store', ['post'=>$post->id])]) @endcommentForm
 
-            <h4>Comments</h4>
-            @forelse($post->comments as $comment)
-                <p>{{$comment->content}}</p>
-                @updated(['date'=>$comment->created_at->diffForHumans(), 'name'=>$comment->user->name])
-                @endupdated
-            @empty
-                <p>No comments yet!</p>
-            @endforelse
+            @commentsList(['comments'=>$post->comments]) @endcommentsList
+
         </div>
 
         <div class="col-4">
