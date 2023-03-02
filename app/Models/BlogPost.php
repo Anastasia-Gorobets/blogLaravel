@@ -10,13 +10,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use App\Traits\Taggeble;
 
 class BlogPost extends Model
 {
     protected $fillable = ['title','content', 'user_id'];
     use HasFactory;
 
-    use SoftDeletes;
+    use SoftDeletes, Taggeble;
 
     public function comments()
     {
@@ -28,9 +29,6 @@ class BlogPost extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function tags(){
-        return $this->belongsToMany(Tag::class)->withTimestamps();
-    }
 
     public function image(){
         return $this->morphOne(Image::class, 'imagebale');

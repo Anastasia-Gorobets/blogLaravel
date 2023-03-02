@@ -20,7 +20,7 @@
             @endtags
 
 
-            <img class="postThumbnail" src="{{$post->image->url()}}">
+            <img class="postThumbnail" src="{{$post->image ? $post->image->url() : ''}}">
 
             <p>Currently read by {{$counter}} people</p>
 
