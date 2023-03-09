@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
+use App\Mail\CommentPostedOnPostWatched;
 use App\Models\BlogPost;
 use App\Models\Image;
 use App\Models\User;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -76,6 +78,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
+
         $blogPost = Cache::tags(['blog-post'])->remember("blog-post-{$id}", now()->addSeconds(10), function () use ($id){
            /* return BlogPost::with('comments')->with('tags')->with('user')->with('comments.user')->findOrFail($id);*/
 

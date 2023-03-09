@@ -1,12 +1,12 @@
 <style>
-body{
-    color: #2d3748;
-}
+    body{
+        color: #2d3748;
+    }
 </style>
 
 <h1>Hi {{$comment->commentable->user->name}}</h1>
 <p>
-    Some has commented on your blog post <a href="{{route('posts.show', ['post'=>$comment->commentable->id])}}">{{$comment->commentable->title}}</a>
+   Comment was posted on post you're watching <a href="{{route('posts.show', ['post'=>$comment->commentable->id])}}">{{$comment->commentable->title}}</a>
 </p>
 
 <hr>
