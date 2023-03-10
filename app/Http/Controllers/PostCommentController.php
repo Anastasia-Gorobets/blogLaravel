@@ -3,14 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostComment;
-use App\Jobs\NotifyUsersPostWasCommented;
-use App\Jobs\ThrottledMail;
-use App\Mail\CommentPosted;
-use App\Mail\CommentPostedOnPostWatched;
-use App\Models\User;
-use Illuminate\Http\Request;
 use App\Models\BlogPost;
-use Illuminate\Support\Facades\Mail;
 
 class PostCommentController extends Controller
 {
@@ -26,14 +19,7 @@ class PostCommentController extends Controller
          ]
         );
 
-
-        //Mail::to($post->user)->send(new CommentPosted($comment));
-
-        //Mail::to($post->user)->queue(new CommentPosted($comment));
-
-        ThrottledMail::dispatch(new CommentPosted($comment), $post->user);
-
-        NotifyUsersPostWasCommented::dispatch($comment);
+        event(new \App\Events\CommentPosted($comment));
 
         return redirect()->back()->withStatus('Comment was created!');
     }

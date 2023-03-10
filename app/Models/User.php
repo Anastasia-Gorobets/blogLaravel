@@ -83,7 +83,13 @@ class User extends Authenticatable
             return $query->where('commentable_id', '=', $blogPost->id)
                 ->where('commentable_type', '=', BlogPost::class);
         });
+    }
 
+    public function scopeThatIsAdmin(Builder $query){
+
+        $query->where('is_admin',true);
 
     }
+
+
 }
