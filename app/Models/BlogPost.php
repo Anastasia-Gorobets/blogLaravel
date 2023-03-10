@@ -41,25 +41,6 @@ class BlogPost extends Model
 
         parent::boot();
 
-        static::deleting(function (BlogPost $blogPost){
-            if($blogPost->image){
-                Storage::delete($blogPost->image->path);
-            }
-            $blogPost->comments()->delete();
-            $blogPost->image()->delete();
-
-            Cache::tags(['blog-post'])->forget("blog-post-{$blogPost->id}");
-        });
-
-        static::restoring(function (BlogPost $blogPost){
-            $blogPost->comments()->restore();
-        });
-
-        static::updating(function (BlogPost $blogPost){
-            Cache::tags(['blog-post'])->forget("blog-post-{$blogPost->id}");
-        });
-
-       // static::addGlobalScope(new LatestScope);
     }
 
 
