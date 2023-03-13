@@ -13,6 +13,12 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public const LOCALES = [
+        'en'=>'English',
+        'es'=>'Spanish',
+        'de'=>'Deautch'
+    ];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -22,6 +28,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'locale'
     ];
 
     /**

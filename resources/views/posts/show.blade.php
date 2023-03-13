@@ -22,7 +22,7 @@
 
             <img class="postThumbnail" src="{{$post->image ? $post->image->url() : ''}}">
 
-            <p>Currently read by {{$counter}} people</p>
+            <p>{{trans_choice('messages.people.reading', $counter)}}</p>
 
             @commentForm(['route'=>route('posts.comments.store', ['post'=>$post->id])]) @endcommentForm
 

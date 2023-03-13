@@ -20,7 +20,6 @@ use App\Http\Controllers\UserCommentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/',[PostsController::class, 'index'])->name('home.index');
 Route::get('/contact',[HomeController::class, 'contact'])->name('home.contact');
 
@@ -88,3 +87,4 @@ Route::get('/recent-posts/{days?}', function ($days=20) {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            @card(['title'=>'Most commented posts'])
+            @card(['title'=>trans('messages.most_commented_posts')])
             @slot('items')
                 @foreach($mostCommentedPosts as $key=>$post)
                     <li><a href="{{route('posts.show',['post'=>$post->id])}}">{{$post->title}}</a></li>
