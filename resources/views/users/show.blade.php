@@ -9,6 +9,8 @@
 
             <div class="col-8">
                <h3>{{$user->name}}</h3>
+
+                <p>Currently count is {{$counter}}</p>
             </div>
         </div>
 

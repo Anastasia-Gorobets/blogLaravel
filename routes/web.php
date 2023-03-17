@@ -32,7 +32,7 @@ Route::get('/posts/tag/{id}',[PostTagController::class, 'index'])->name('posts.t
 
 Route::resource('posts',PostsController::class);
 Route::resource('users',UserController::class)->only(['show', 'edit', 'update']);
-Route::resource('posts.comments',PostCommentController::class)->only(['store']);
+Route::resource('posts.comments',PostCommentController::class)->only(['store', 'index']);
 Route::resource('users.comments',UserCommentController::class)->only(['store']);
 
 /*
