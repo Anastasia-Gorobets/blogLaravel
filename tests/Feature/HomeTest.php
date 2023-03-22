@@ -18,7 +18,7 @@ class HomeTest extends TestCase
         $user = $this->user();
         $this->actingAs($user);
         $response = $this->get('/');
-        $response->assertSeeText('Most commented posts');
+        $response->assertSeeText('Most Commented');
         $response->assertSeeText('Most active users');
         $response->assertSeeText('Most active users last month');
     }
